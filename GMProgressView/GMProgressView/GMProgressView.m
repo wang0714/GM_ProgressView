@@ -29,6 +29,8 @@
 
 @property (nonatomic,strong) UILabel *textL;
 
+@property (nonatomic,strong) UILabel *perL;
+
 @end
 
 
@@ -65,15 +67,15 @@ const CGFloat StrokeEnd = 1;
     
     CGFloat fontRatio = Width/68;
     
-    UILabel *perL = [[UILabel alloc] init];
-    perL.text = @"%";
-    perL.font = [UIFont systemFontOfSize:12*fontRatio];
-    perL.textColor = _numLColor?_numLColor:HexColor(0xfc6151, 1);
-    CGSize size = [perL sizeThatFits:CGSizeZero];
-    perL.frame = CGRectMake(43*fontRatio, 25*fontRatio, size.width, size.height);
-    [self addSubview:perL];
+    _perL = [[UILabel alloc] init];
+    _perL.text = @"%";
+    _perL.font = [UIFont systemFontOfSize:12*fontRatio];
+    _perL.textColor = _numLColor?_numLColor:HexColor(0xfc6151, 1);
+    CGSize size = [_perL sizeThatFits:CGSizeZero];
+    _perL.frame = CGRectMake(43*fontRatio, 25*fontRatio, size.width, size.height);
+    [self addSubview:_perL];
     
-    _numL = [[UILabel alloc] initWithFrame:CGRectMake(perL.frame.origin.x-35*fontRatio, 21*fontRatio, 35*fontRatio, 20*fontRatio)];
+    _numL = [[UILabel alloc] initWithFrame:CGRectMake(_perL.frame.origin.x-35*fontRatio, 21*fontRatio, 35*fontRatio, 20*fontRatio)];
     _numL.textColor = _numLColor?_numLColor:HexColor(0xfc6151, 1);
     _numL.font = [UIFont systemFontOfSize:20*fontRatio];
     _numL.textAlignment = NSTextAlignmentRight;
@@ -90,6 +92,48 @@ const CGFloat StrokeEnd = 1;
 }
 
 
+-(void)setTextStr:(NSString *)TextStr
+{
+    if (TextStr) {
+        _TextStr = TextStr;
+        _textL.text = TextStr;
+    }
+}
+
+-(void)setTextColor:(UIColor *)textColor
+{
+    if (textColor) {
+        _textColor = textColor;
+        _numL.textColor = textColor;
+        _textL.textColor = textColor;
+        _perL.textColor = textColor;
+    }
+}
+
+-(void)setBottomLineColor:(UIColor *)bottomLineColor
+{
+    if (bottomLineColor) {
+        _bottomLineColor = bottomLineColor;
+        _line1.strokeColor = bottomLineColor.CGColor;
+    }
+}
+
+-(void)setTopLineColor:(UIColor *)topLineColor
+{
+    if (topLineColor) {
+        _topLineColor = topLineColor;
+        _line2.strokeColor = topLineColor.CGColor;
+    }
+}
+
+-(void)setLineWidth:(CGFloat)lineWidth
+{
+    if (lineWidth) {
+        _line1.lineWidth = lineWidth;
+        _line2.lineWidth = lineWidth;
+    }
+}
+
 
 
 
@@ -102,7 +146,6 @@ const CGFloat StrokeEnd = 1;
     [bezierPath addCurveToPoint: CGPointMake(34.5*_autoRatio, 3*_autoRatio) controlPoint1: CGPointMake(0.39*_autoRatio, 27.44*_autoRatio) controlPoint2: CGPointMake(6.59*_autoRatio, 3*_autoRatio)];
     [bezierPath addCurveToPoint: CGPointMake(65.51*_autoRatio, 39.67*_autoRatio) controlPoint1: CGPointMake(62.41*_autoRatio, 3*_autoRatio) controlPoint2: CGPointMake(68.61*_autoRatio, 27.44*_autoRatio)];
     [bezierPath addCurveToPoint: CGPointMake(53.11*_autoRatio, 58*_autoRatio) controlPoint1: CGPointMake(62.41*_autoRatio, 51.89*_autoRatio) controlPoint2: CGPointMake(53.11*_autoRatio, 58*_autoRatio)];
-    [bezierPath stroke];
     
     
     _line1=[CAShapeLayer layer];

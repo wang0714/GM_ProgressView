@@ -30,6 +30,11 @@
 @property (nonatomic,strong) UIColor *numLColor;
 
 /**
+ *  标题文字
+ */
+@property (nonatomic,strong) NSString *TextStr;
+
+/**
  *  线条宽度  默认6px
  */
 @property (nonatomic,assign) CGFloat lineWidth;
